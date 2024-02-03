@@ -28,14 +28,14 @@ const columns = (): TableComponentColumn[] => [
 const getData = async (api: ApiClient, params: DocumentGetParams) => {
 	const data = await api.Documents.get(params);
 	data["hydra:member"] = await Promise.all(
-		data["hydra:member"].map(async ({ contractor, type, docDate, ...item }) => {
-			const contractorData = await api.DictionaryContractor.getById(contractor.split("/")[2]);
-			const typeData = await api.DictionaryDocumentType.getById(type.split("/")[2]);
+		data["hydra:member"].map(async ({ docDate, ...item }) => {
+			// const contractorData = await api.DictionaryContractor.getById(contractor.split("/")[2]);
+			// const typeData = await api.DictionaryDocumentType.getById(type.split("/")[2]);
 			return {
-				contractor: contractorData.name,
-				contractorID: contractorData["@id"],
-				type: typeData.name,
-				typeID: typeData["@id"],
+				// contractor: contractorData.name,
+				// contractorID: contractorData["@id"],
+				// type: typeData.name,
+				// typeID: typeData["@id"],
 				docDate: new Date(docDate).toLocaleDateString(),
 				...item,
 			};

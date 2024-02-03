@@ -13,11 +13,9 @@ const columns = (): TableComponentColumn[] => [
 const getData = async (api: ApiClient, params: DictionaryProductGetParams) => {
 	const data = await api.DictionaryProduct.get(params);
 	data["hydra:member"] = await Promise.all(
-		data["hydra:member"].map(async ({ type, ...item }) => {
-			const productType = await api.DictionaryProductType.getById(type.split("/")[2]);
+		data["hydra:member"].map(async ({ ...item }) => {
+			// const productType = await api.DictionaryProductType.getById(type.split("/")[2]);
 			return {
-				type: productType.name,
-				typeID: productType["@id"],
 				...item,
 			};
 		})

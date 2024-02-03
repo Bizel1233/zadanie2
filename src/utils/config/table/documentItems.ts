@@ -19,13 +19,15 @@ const getData = async (api: ApiClient, params: DocumentItemGetParams) => {
 	data["hydra:member"] = await Promise.all(
 		data["hydra:member"].map(
 			async ({ product, unitOfMeasure, quantity, grossPrice, dicountGrossValue, grossValue, ...item }) => {
-				const productData = await api.DictionaryProduct.getById(product.split("/")[2]);
-				const unitOfMeasureData = await api.DictionaryUnitOfMeasure.getById(unitOfMeasure.split("/")[2]);
+				// const productData = await api.DictionaryProduct.getById(product.split("/")[2]);
+				// const unitOfMeasureData = await api.DictionaryUnitOfMeasure.getById(unitOfMeasure.split("/")[2]);
 				return {
-					product: productData.name,
-					productID: productData["@id"],
-					unitOfMeasure: unitOfMeasureData.name,
-					unitOfMeasureID: unitOfMeasureData["@id"],
+					// product: productData.name,
+					// productID: productData["@id"],
+					// unitOfMeasure: unitOfMeasureData.name,
+					// unitOfMeasureID: unitOfMeasureData["@id"],
+					product: product,
+					unitOfMeasure: unitOfMeasure,
 					quantity: Number(quantity).toFixed(0),
 					grossPrice: Number(grossPrice).toFixed(2),
 					dicountGrossValue: Number(dicountGrossValue).toFixed(2),
