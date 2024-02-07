@@ -205,9 +205,20 @@ export const TableComponentElement = () => {
 						</Box>
 					</>
 				) : (
-					<Alert severity="info" sx={{ mt: 3 }}>
-						Brak Danych
-					</Alert>
+					<Box>
+						<Alert severity="info" sx={{ mt: 3 }}>
+							Brak Danych
+						</Alert>
+						<Button
+						variant="contained"
+						onClick={() => {
+							onCreate?.();
+						}}
+						disabled={navigation === "item" ? true : false}
+						>
+							Stwórz nowy
+						</Button>
+					</Box>
 				)}
 			</>
 		);

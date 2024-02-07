@@ -35,6 +35,6 @@ export class DictionaryProductService {
 	}
 
 	async deleteById(id: string): Promise<void> {
-		await this.api.delete(`/dictionary_product/${id}`);
+		await this.api.delete(`/dictionary_products/${id}`);
 	}
 }
