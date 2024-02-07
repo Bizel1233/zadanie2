@@ -14,6 +14,7 @@ import SelectTable from "./selectTable";
 import { positionKeys } from "../navigation";
 import { DocumentItemPostBody } from "../../api/types/documentItem/paramsAndBody";
 import { TableComponentColumn } from "../table/context";
+import NewItemsComponent from "./newItems";
 
 export interface DialogInputProps {
   label: string;
@@ -27,7 +28,6 @@ export interface DialogInputProps {
     onCreated: () => void;
   };
   select?: {
-    // options?: ReferenceArray[];
     column: TableComponentColumn[];
     data?: any[];
     open: boolean;
@@ -97,6 +97,7 @@ export default function DialogComponent({
 
   const [prevEditID, setPrevEditID] = useState<string | undefined>(undefined);
   const [newItems, setNewItems] = useState<DocumentItemPostBody[]>([]);
+  const [itemsOpen, setItemsOpen] = useState(false);
 
   // * jeżeli jesteśmy w trybie edycji i zmienił się editID to ustawiamy wartości na nowe
   useEffect(() => {
@@ -203,25 +204,60 @@ export default function DialogComponent({
                     {column.select?.title}
                   </Button>
                 </Box>
-                <TextField
-                  fullWidth
-                  error={errors[column.key] ? true : false}
-                  helperText={errors[column.key] ?? ""}
-                  label={column.required ? column.label + " *" : column.label}
-                  name={column.key}
-                  type={column.type}
-                  disabled={true}
-                  value={
-                    column.key === "items"
-                      ? "Wybranych elementów: " +
-                        (formik.values[column.key]?.length
-                          ? formik.values[column.key]?.length + newItems.length
-                          : newItems.length)
-                      : formik.values[column.key] !== undefined
-                      ? formik.values[column.key]
-                      : ""
-                  }
-                />
+                <Box
+                  display={"flex"}
+                  justifyContent={"center"}
+                  alignItems={"center"}
+                  gap={"30px"}
+                >
+                  <TextField
+                    fullWidth
+                    error={errors[column.key] ? true : false}
+                    helperText={errors[column.key] ?? ""}
+                    label={column.required ? column.label + " *" : column.label}
+                    name={column.key}
+                    type={column.type}
+                    disabled={true}
+                    value={
+                      column.key === "items"
+                        ? "Wybranych elementów: " +
+                          (formik.values[column.key]?.length
+                            ? formik.values[column.key]?.length +
+                              newItems.length
+                            : newItems.length)
+                        : formik.values[column.key] !== undefined
+                        ? formik.values[column.key]
+                        : ""
+                    }
+                  />
+                  {column.key === "items" ? (
+                    <>
+                      <Button
+                        variant="contained"
+                        color="warning"
+                        disabled={newItems.length === 0}
+                        onClick={() => {
+                          setItemsOpen(true);
+                        }}
+                      >
+                        Pokaż nowo stworzone
+                      </Button>
+                      <Box>
+                        <NewItemsComponent
+                          open={itemsOpen}
+                          onClose={() => setItemsOpen(false)}
+                          title="Nowe produkty"
+                          data={newItems}
+                          onRemove={(item: DocumentItemPostBody) => {
+                            setNewItems((prev) => {
+                              return prev.filter((i) => i !== item);
+                            });
+                          }}
+                        />
+                      </Box>
+                    </>
+                  ) : null}
+                </Box>
                 {column.key === "items" ? (
                   <DialogComponent
                     api={api}

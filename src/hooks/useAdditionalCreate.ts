@@ -123,13 +123,6 @@ export const useAdditionalCreate = () => {
 		const count = data["hydra:totalItems"];
 		const column = tableTypeProductConfig.columns();
 		return {data: members, count: count, column: column}
-				
-		// return api.DictionaryProductType.get(additionalDefaultParams).then((res) => {
-		// 	const productTypes = res["hydra:member"].map((item: ReferenceArray) => {
-		// 		return { "@id": item["@id"], name: item.name };
-		// 	});
-		// 	return { data: productTypes, count: res["hydra:totalItems"] };
-		// });
 	}, [refetchAdditionalData.productType, firstAdditionalDataFetch.productType, itemsPerPage.productType, page.productType]);
 
 	// * funkcja zwracająca dane do tabeli z dodatkowymi selectami produktów
@@ -145,13 +138,6 @@ export const useAdditionalCreate = () => {
 		const count = data["hydra:totalItems"];
 		const column = tableProductConfig.columns();
 		return {data: members, count: count, column: column}
-
-		// return api.DictionaryProduct.get(additionalDefaultParams).then((res) => {
-		// 	const product = res["hydra:member"].map((item: ReferenceArray) => {
-		// 		return { "@id": item["@id"], name: item.name };
-		// 	});
-		// 	return { data: product, count: res["hydra:totalItems"] };
-		// });
 	}, [refetchAdditionalData.product, firstAdditionalDataFetch.product, itemsPerPage.product, page.product]);
 
 	// * funkcja zwracająca dane do tabeli z dodatkowymi selectami jednostek miary
@@ -167,13 +153,6 @@ export const useAdditionalCreate = () => {
 		const count = data["hydra:totalItems"];
 		const column = tableUnitOfMeasuresConfig.columns();
 		return {data: members, count: count, column: column}
-
-		// return api.DictionaryUnitOfMeasure.get(additionalDefaultParams).then((res) => {
-		// 	const unitOfMeasure = res["hydra:member"].map((item: ReferenceArray) => {
-		// 		return { "@id": item["@id"], name: item.name };
-		// 	});
-		// 	return { data: unitOfMeasure, count: res["hydra:totalItems"] };
-		// });
 	}, [
 		refetchAdditionalData.unitOfMeasure,
 		firstAdditionalDataFetch.unitOfMeasure,
@@ -194,15 +173,6 @@ export const useAdditionalCreate = () => {
 		const count = data["hydra:totalItems"];
 		const column = tableDocumentItemsConfig.columns();
 		return {data: members, count: count, column: column}
-
-		// return api.DocumentItem.get(additionalDefaultParams).then(async (res) => {
-		// 	const documentItems = res["hydra:member"].map(async (item) => {
-		// 		return api.DictionaryProduct.getById(item.product.split("/")[2]).then((product) => {
-		// 			return { "@id": item["@id"], name: product.name };
-		// 		});
-		// 	});
-		// 	return { data: await Promise.all(documentItems), count: res["hydra:totalItems"] };
-		// });
 	}, [
 		refetchAdditionalData.documentItem,
 		firstAdditionalDataFetch.documentItem,
@@ -223,13 +193,6 @@ export const useAdditionalCreate = () => {
 		const count = data["hydra:totalItems"];
 		const column = tableContractorConfig.columns();
 		return {data: members, count: count, column: column}
-
-		// return api.DictionaryContractor.get(additionalDefaultParams).then((res) => {
-		// 	const contractors = res["hydra:member"].map((item: ReferenceArray) => {
-		// 		return { "@id": item["@id"], name: item.name };
-		// 	});
-		// 	return { data: contractors, count: res["hydra:totalItems"] };
-		// });
 	}, [refetchAdditionalData.contractor, firstAdditionalDataFetch.contractor, itemsPerPage.contractor, page.contractor]);
 
 	// * funkcja zwracająca dane do tabeli z dodatkowymi selectami typów dokumentu
@@ -245,13 +208,6 @@ export const useAdditionalCreate = () => {
 		const count = data["hydra:totalItems"];
 		const column = tableTypeDocumentConfig.columns();
 		return {data: members, count: count, column: column}
-
-		// return api.DictionaryDocumentType.get(additionalDefaultParams).then((res) => {
-		// 	const documentTypes = res["hydra:member"].map((item: ReferenceArray) => {
-		// 		return { "@id": item["@id"], name: item.name };
-		// 	}); 
-		// 	return { data: documentTypes, count: res["hydra:totalItems"] };
-		// });
 	}, [
 		refetchAdditionalData.documentType,
 		firstAdditionalDataFetch.documentType,
@@ -365,7 +321,6 @@ export const useAdditionalCreate = () => {
 						return {
 							...column,
 							select: {
-								// options: product?.data ?? [],
 								data: product?.data ?? [],
 								column: product?.column ?? [myNewColumn],
 								open: additionalSelectOpen.product,
@@ -408,7 +363,6 @@ export const useAdditionalCreate = () => {
 						return {
 							...column,
 							select: {
-								// options: unitOfMeasure?.data ?? [],
 								data: unitOfMeasure?.data ?? [],
 								column: unitOfMeasure?.column ?? [myNewColumn],
 								open: additionalSelectOpen.unitOfMeasure,
@@ -504,7 +458,6 @@ export const useAdditionalCreate = () => {
 						return {
 							...column,
 							select: {
-								// options: contractorArray?.data ?? [],
 								data: contractorArray?.data ?? [],
 								column: contractorArray?.column ?? [myNewColumn],
 								open: additionalSelectOpen.contractor,
@@ -545,7 +498,6 @@ export const useAdditionalCreate = () => {
 						return {
 							...column,
 							select: {
-								// options: documentTypeArray?.data ?? [],
 								data: documentTypeArray?.data ?? [],
 								column: documentTypeArray?.column ?? [myNewColumn],
 								open: additionalSelectOpen.documentType,
@@ -586,7 +538,6 @@ export const useAdditionalCreate = () => {
 						return {
 							...column,
 							select: {
-								// options: itemArray?.data ?? [],
 								data: itemArray?.data ?? [],
 								column: itemArray?.column ?? [myNewColumn],
 								open: additionalSelectOpen.documentItem,

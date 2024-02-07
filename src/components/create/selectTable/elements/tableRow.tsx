@@ -1,6 +1,5 @@
 import { Checkbox, Radio, TableCell, TableRow } from "@mui/material";
 import { useSelectTableComponent } from "../context";
-import { ReferenceArray } from "../../../../utils/config/create/formConfig";
 import { TableComponentElementCell } from "../../../table/elements/tableCell";
 
 interface newReferenceArray {
@@ -44,9 +43,6 @@ export const TableComponentElementRow = ({ row }: props) => {
           ""
         )}
       </TableCell>
-      {/* <TableComponentElementCell data={row["@id"]} />
-			<TableComponentElementCell data={row.name} /> */}
-
       {column.map((col, i) => (
         <TableComponentElementCell key={i} data={row} column={col} />
       ))}

@@ -43,8 +43,6 @@ export const SelectTableComponentElement = () => {
                 <TableHead>
                   <TableRow>
                     <TableCell />
-                    {/* <TableCell width={"250px"}>Identyfikator</TableCell>
-                    <TableCell>Nazwa</TableCell> */}
                     {column.map((col, i) => (
                       <TableCell key={col.key}>{col.label}</TableCell>
                     ))}
