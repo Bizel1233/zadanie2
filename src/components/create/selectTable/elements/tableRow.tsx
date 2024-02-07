@@ -4,7 +4,7 @@ import { TableComponentElementCell } from "../../../table/elements/tableCell";
 
 interface newReferenceArray {
   "@id": string;
-
+  name: string;
   [key: string]: any;
 }
 
@@ -13,8 +13,14 @@ interface props {
 }
 
 export const TableComponentElementRow = ({ row }: props) => {
-  const { selected, setSelected, setSelectedItems, selectedItems, column } =
-    useSelectTableComponent();
+  const {
+    selected,
+    setSelected,
+    setNameSelected,
+    setSelectedItems,
+    selectedItems,
+    column,
+  } = useSelectTableComponent();
 
   return (
     <TableRow hover>
@@ -37,6 +43,7 @@ export const TableComponentElementRow = ({ row }: props) => {
             checked={selected === row["@id"] ? true : false}
             onChange={() => {
               setSelected(row["@id"]);
+              setNameSelected?.(row.name);
             }}
           />
         ) : (

@@ -18,6 +18,7 @@ interface props {
   setItemsPerPage: (value: number) => void;
   selected?: string;
   setSelected?: (value: string) => void;
+  setNameSelected?: (value: string) => void;
   selectedItems?: string[];
   setSelectedItems?: (value: string[]) => void;
   isLoading?: boolean;
@@ -38,6 +39,7 @@ export default function SelectTable({
   selectedItems,
   setSelected,
   setSelectedItems,
+  setNameSelected,
   isLoading,
   column,
 }: props) {
@@ -61,6 +63,7 @@ export default function SelectTable({
             isLoading: isLoading ?? false,
             selected: selected,
             setSelected: setSelected,
+            setNameSelected: setNameSelected,
             selectedItems: selectedItems,
             setSelectedItems: setSelectedItems,
             onclose: onClose,

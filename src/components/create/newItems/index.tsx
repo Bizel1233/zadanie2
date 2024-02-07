@@ -56,7 +56,6 @@ export default function NewItemsComponent({
           </TableHead>
           <TableBody>
             {data.map((row, index) => (
-              // <TableComponentElementRow row={row} key={index} />
               <TableRow hover key={index}>
                 {ItemsCreatedColumn.map((column, i) => (
                   <TableComponentElementCell

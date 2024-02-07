@@ -22,6 +22,7 @@ export type SelectTableComponentContextType = {
   setSelectedItems?: (value: string[]) => void;
   selected?: string | undefined;
   setSelected?: (value: string) => void;
+  setNameSelected?: (value: string) => void;
   onclose: () => void;
   itemsPerPage: number;
   itemsPerPageOptions: number[];

@@ -4,6 +4,7 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
 import { Box, Stack, TextField } from "@mui/material";
 import {
+  AnyObject,
   FormConfig,
   ReferenceArray,
 } from "../../utils/config/create/formConfig";
@@ -98,6 +99,7 @@ export default function DialogComponent({
   const [prevEditID, setPrevEditID] = useState<string | undefined>(undefined);
   const [newItems, setNewItems] = useState<DocumentItemPostBody[]>([]);
   const [itemsOpen, setItemsOpen] = useState(false);
+  const [myNewSelected, setMyNewSelected] = useState<AnyObject>();
 
   // * jeżeli jesteśmy w trybie edycji i zmienił się editID to ustawiamy wartości na nowe
   useEffect(() => {
@@ -225,8 +227,9 @@ export default function DialogComponent({
                             ? formik.values[column.key]?.length +
                               newItems.length
                             : newItems.length)
-                        : formik.values[column.key] !== undefined
-                        ? formik.values[column.key]
+                        : myNewSelected !== undefined
+                        ? // ? formik.values[column.key]
+                          myNewSelected[column.key] ?? ""
                         : ""
                     }
                   />
@@ -314,6 +317,11 @@ export default function DialogComponent({
                     column.select?.setSelected?.(value);
                     formik.setFieldValue(column.key, value);
                     column.select?.setOpen(false);
+                  }}
+                  setNameSelected={(value) => {
+                    setMyNewSelected((prev) => {
+                      return { ...prev, [column.key]: value };
+                    });
                   }}
                   selectedItems={column.select?.selectedItems}
                   setSelectedItems={(value) => {

@@ -22,7 +22,7 @@ export interface ReferenceArray {
 	name: string;
 }
 
-interface AnyObject {
+export interface AnyObject {
 	[key: string]: any;
 }
 
