@@ -55,7 +55,8 @@ export const ApiProvider = ({ children }: { children: React.ReactElement }) => {
 		popup.setOpen(true);
 	};
 
-	if (!token || apiClient === null || !ready)
+	if(apiClient === null) return null
+	if (!token || !ready)
 		return (
 			<ApiContext.Provider value={{ apiClient, setToken }}>
 				<AuthPage />
