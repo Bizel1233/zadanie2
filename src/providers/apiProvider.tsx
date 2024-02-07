@@ -4,64 +4,69 @@ import { AuthPage } from "../pages/auth";
 import { usePopup } from "../hooks/usePopup";
 
 interface ApiClientContextType {
-	apiClient: ApiClient | null;
-	setToken: (token: string | null) => void;
+  apiClient: ApiClient | null;
+  setToken: (token: string | null) => void;
 }
 
 export const ApiContext = createContext<ApiClientContextType | null>(null);
 
 export const ApiProvider = ({ children }: { children: React.ReactElement }) => {
-	const [token, setToken] = useState<string | null>(null);
-	const [apiClient, setApiClient] = useState<ApiClient | null>(null);
-	const [ready, setReady] = useState(false)
-	const popup = usePopup();
+  const [token, setToken] = useState<string | null>(null);
+  const [apiClient, setApiClient] = useState<ApiClient | null>(null);
+  const [ready, setReady] = useState(false);
+  const popup = usePopup();
 
-	// * ustawienie apiClienta na podstawie tokena
-	useEffect(() => {
-		if (token) {
-			setApiClient(
-				new ApiClient({
-					baseURL: "http://bbcashflow.beyondbytes.co.uk",
-					token: token,
-					handleUnauthorized: handleUnauthorized,
-					handleErrorMessage: handleErrorMessage,
-				})
-			);
-			setReady(true)
-		} else {
-			const checkToken = localStorage.getItem("token");
-			if (checkToken) {
-				setToken(checkToken);
-			} else {
-				setApiClient(
-					new ApiClient({
-						baseURL: "http://bbcashflow.beyondbytes.co.uk",
-						handleUnauthorized: handleUnauthorized,
-						handleErrorMessage: handleErrorMessage,
-					})
-				);
-			}
-		}
-	}, [token]);
+  // * ustawienie apiClienta na podstawie tokena
+  useEffect(() => {
+    setReady(false);
+    if (token) {
+      setApiClient(
+        new ApiClient({
+          baseURL: "http://bbcashflow.beyondbytes.co.uk",
+          token: token,
+          handleUnauthorized: handleUnauthorized,
+          handleErrorMessage: handleErrorMessage,
+        })
+      );
+      setReady(true);
+    } else {
+      const checkToken = localStorage.getItem("token");
+      if (checkToken) {
+        setToken(checkToken);
+      } else {
+        setApiClient(
+          new ApiClient({
+            baseURL: "http://bbcashflow.beyondbytes.co.uk",
+            handleUnauthorized: handleUnauthorized,
+            handleErrorMessage: handleErrorMessage,
+          })
+        );
+      }
+    }
+  }, [token]);
 
-	const handleUnauthorized = () => {
-		setToken(null);
-		localStorage.removeItem("token");
-	};
+  const handleUnauthorized = () => {
+    setToken(null);
+    localStorage.removeItem("token");
+  };
 
-	const handleErrorMessage = (error: string, type: "error" | "success") => {
-		popup.setType(type);
-		popup.setMessage(error);
-		popup.setOpen(true);
-	};
+  const handleErrorMessage = (error: string, type: "error" | "success") => {
+    popup.setType(type);
+    popup.setMessage(error);
+    popup.setOpen(true);
+  };
 
-	if(apiClient === null) return null
-	if (!token || !ready)
-		return (
-			<ApiContext.Provider value={{ apiClient, setToken }}>
-				<AuthPage />
-			</ApiContext.Provider>
-		);
+  if (apiClient === null) return null;
+  if (!token || !ready)
+    return (
+      <ApiContext.Provider value={{ apiClient, setToken }}>
+        <AuthPage />
+      </ApiContext.Provider>
+    );
 
-	return <ApiContext.Provider value={{ apiClient, setToken }}>{children}</ApiContext.Provider>;
+  return (
+    <ApiContext.Provider value={{ apiClient, setToken }}>
+      {children}
+    </ApiContext.Provider>
+  );
 };
