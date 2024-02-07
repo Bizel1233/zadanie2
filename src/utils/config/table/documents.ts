@@ -4,7 +4,7 @@ import { TableComponentColumn } from "../../../components/table/context";
 import { TableConfig } from "./tableConfig";
 
 const columns = (): TableComponentColumn[] => [
-	{ label: "Identyfikator", key: "id", type: "string", sort: true, sortKey: "order[id]" },
+	{ label: "Id", key: "id", type: "string", sort: true, sortKey: "order[id]" },
 	{ label: "Kontrahent", key: "contractor", type: "string", filter: true },
 	{ label: "Numer", key: "number", type: "string", filter: true, sort: true, sortKey: "order[number]" },
 	{ label: "Typ", key: "type", type: "string" },
