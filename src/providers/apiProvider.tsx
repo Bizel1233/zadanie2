@@ -13,6 +13,7 @@ export const ApiContext = createContext<ApiClientContextType | null>(null);
 export const ApiProvider = ({ children }: { children: React.ReactElement }) => {
 	const [token, setToken] = useState<string | null>(null);
 	const [apiClient, setApiClient] = useState<ApiClient | null>(null);
+	const [ready, setReady] = useState(false)
 	const popup = usePopup();
 
 	// * ustawienie apiClienta na podstawie tokena
@@ -26,6 +27,7 @@ export const ApiProvider = ({ children }: { children: React.ReactElement }) => {
 					handleErrorMessage: handleErrorMessage,
 				})
 			);
+			setReady(true)
 		} else {
 			const checkToken = localStorage.getItem("token");
 			if (checkToken) {
@@ -53,8 +55,7 @@ export const ApiProvider = ({ children }: { children: React.ReactElement }) => {
 		popup.setOpen(true);
 	};
 
-	if (apiClient === null) return null;
-	if (!token)
+	if (!token || apiClient === null || !ready)
 		return (
 			<ApiContext.Provider value={{ apiClient, setToken }}>
 				<AuthPage />

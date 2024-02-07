@@ -14,7 +14,6 @@ export const useAuth = () => {
 		if (res.status === 200) {
 			setToken(res.data.token);
 			window.localStorage.setItem("token", res.data.token);
-			window.location.href = "/";
 		}
 	}
 
